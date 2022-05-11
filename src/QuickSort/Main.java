@@ -3,6 +3,18 @@ package QuickSort;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/*
+Arraylist 로 퀵 정렬 구현
+
+quick sort
+- ArrayList 를 인자로 받아 기준이 되는 pivot 이 들어가는 ArrayList, 기준보다 크기가 작은 수들이 들어가근 Left, 큰 수들이 들어가는 Right ArrayList 를 생성
+- for 문을 돌며 최초의 Arraylist 를 각각 저장
+- 각 ArrayList 를 합쳐서 정렬된 ArrayList 를 생성
+    * 이 과정에서 left 와 right 에 재귀함수를 걸어 내부적으로 sorting 을 완료시킨다
+- 최종적으로 정렬된 배열 반환
+
+ */
+
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -17,8 +29,8 @@ public class Main {
         ArrayList<Integer> sortedData = sort.sorting(unsortedData);
 
         System.out.println("최종 정렬: ");
-        for (int i = 0; i < sortedData.size(); i++){
-            System.out.print(sortedData.get(i) + " ");
+        for (Integer sortedDatum : sortedData) {
+            System.out.print(sortedDatum + " ");
         }
     }
 }
@@ -51,8 +63,8 @@ class Sort {
         middleResult.addAll(right);
 
         System.out.println("정렬 출력: ");
-        for (int i = 0; i< middleResult.size(); i++){
-            System.out.print(middleResult.get(i) + " ");
+        for (Integer integer : middleResult) {
+            System.out.print(integer + " ");
         }
         System.out.println();
 
