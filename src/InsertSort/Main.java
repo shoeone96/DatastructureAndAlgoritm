@@ -31,8 +31,8 @@ public class Main {
             array.add(scanner.nextInt());
         }
 
-        long beforeInsert = System.nanoTime();
         InsertSort insertSort = new InsertSort();
+        long beforeInsert = System.nanoTime();
         array = insertSort.insertSort(array);
         long afterInsert = System.nanoTime();
         long insertOperationTime = (afterInsert - beforeInsert) / 1000;
@@ -49,8 +49,8 @@ public class Main {
             array2.add(scanner.nextInt());
         }
 
-        long beforeShell = System.nanoTime();
         ShellSort shellSort = new ShellSort();
+        long beforeShell = System.nanoTime();
         array2 = shellSort.shellSort(array2);
         long afterShell = System.nanoTime();
         long shellOperationTime = (afterShell - beforeShell) / 1000;
