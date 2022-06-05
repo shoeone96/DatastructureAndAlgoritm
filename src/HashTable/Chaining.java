@@ -1,49 +1,66 @@
 package HashTable;
 
-public class Chaining<K, V> {
-    private int M = 13;
-    private Node[] a = new Node[M];
+import java.util.Arrays;
 
-    public static class Node {
-        private Object key;
-        private Object data;
-        private Node next;
+public class Chaining {
 
-        public Node(Object newKey, Object newData, Node ref) {
-            key = newKey;
-            data = newData;
-            next = ref;
-        }
+    public Slot[] chaining;
 
-        public Object getKey() {
-            return this.key;
-        }
 
-        public Object getData() {
-            return this.data;
+    public Chaining(Integer size) {
+        this.chaining = new Slot[size];
+    }
+
+
+    public class Slot {
+
+        String key;
+        String value;
+        Slot next;
+
+        Slot(String key, String value) {
+            this.value = value;
+            this.key = key;
+            this.next = null;
         }
     }
 
-    private int hash(K key) {
-        return (key.hashCode() & 0x7ffffff) % M;
+
+    public int hasFunc(String key) {
+        return (int) (key.charAt(0)) % this.chaining.length;
     }
 
-    public V get(K key) {
-        int i = hash(key);
-        for (Node x = a[i]; x != null; x = x.next) {
-            if (key.equals(x.key)) return (V) x.data;
-        }
-        return null;
+
+    public boolean saveData(String key, String value) {
+        Integer address = this.hasFunc(key);
+        if (this.chaining[address] != null) {
+            Slot findSlot = this.chaining[address];
+            Slot prevSlot = this.chaining[address];
+            while(findSlot != null){
+                if(findSlot.key == key){
+                    findSlot.value = value;
+                    return true;
+                }else prevSlot = findSlot;
+                findSlot = findSlot.next;
+            }
+            prevSlot.next = new Slot(key, value);
+        } else this.chaining[address] = new Slot(key, value);
+        System.out.println(Arrays.toString(chaining));
+
+        return true;
     }
 
-    private void put(K key, V data) {
-        int i = hash(key);
-        for (Node x = a[i]; x != null; x = x.next) {
-            if (key.equals(x.key)) {
-                x.data = data;
-                return;
+
+    public String getData(String key) {
+        int address = this.hasFunc(key);
+        Slot findSlot = chaining[address];
+        if (findSlot != null) {
+            while(findSlot != null){
+                if(findSlot.key.equals(key)){
+                    return findSlot.value;
+                }else findSlot = findSlot.next;
             }
         }
-        a[i] = new Node(key, data, a[i]);
+        return null;
     }
 }
